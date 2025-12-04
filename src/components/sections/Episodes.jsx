@@ -28,7 +28,7 @@ const Episodes = () => {
             <div className="max-w-7xl mx-auto">
                 <h2 className="text-4xl md:text-5xl font-bold text-green-500 mb-2 text-center">Episodes</h2>
                 <p className="text-gray-400 text-center mb-10">Watch the best episodes from the series</p>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {episodes.map((episode) => (
                         <div key={episode.id} className="bg-gray-800 rounded-lg p-6 border-2 border-green-500 hover:shadow-lg hover:shadow-green-500 transition duration-300">

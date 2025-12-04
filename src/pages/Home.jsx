@@ -1,4 +1,4 @@
-import Hero from '../components/sections/Hero'
+import Hero from '../components/Hero'
 import Characters from '../components/sections/Characters'
 import Locations from '../components/sections/Locations'
 import Episodes from '../components/sections/Episodes'

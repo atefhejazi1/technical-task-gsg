@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Menu, X, Search } from 'lucide-react'
+import { Link } from 'react-router'
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -29,10 +30,10 @@ const Navbar = () => {
 
                     {/* Desktop Menu */}
                     <div className="hidden md:flex space-x-6">
-                        <a href="#" className="text-gray-300 hover:text-green-500 transition font-semibold">Characters</a>
-                        <a href="#" className="text-gray-300 hover:text-green-500 transition font-semibold">Episodes</a>
-                        <a href="#" className="text-gray-300 hover:text-green-500 transition font-semibold">Locations</a>
-                        <a href="#" className="text-gray-300 hover:text-green-500 transition font-semibold">About</a>
+                        <Link to="/" className="text-gray-300 hover:text-green-500 transition font-semibold">Home</Link>
+                        <Link to="/characters" className="text-gray-300 hover:text-green-500 transition font-semibold">Characters</Link>
+                        <Link to="/episodes" className="text-gray-300 hover:text-green-500 transition font-semibold">Episodes</Link>
+                        <Link to="/locations" className="text-gray-300 hover:text-green-500 transition font-semibold">Locations</Link>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -54,10 +55,10 @@ const Navbar = () => {
                                 className="w-full px-4 py-2 rounded-lg bg-gray-700 border-2 border-green-500 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400"
                             />
                         </div>
-                        <a href="#" className="block px-3 py-2 text-gray-300 hover:text-green-500 hover:bg-gray-700 rounded font-semibold">Characters</a>
-                        <a href="#" className="block px-3 py-2 text-gray-300 hover:text-green-500 hover:bg-gray-700 rounded font-semibold">Episodes</a>
-                        <a href="#" className="block px-3 py-2 text-gray-300 hover:text-green-500 hover:bg-gray-700 rounded font-semibold">Locations</a>
-                        <a href="#" className="block px-3 py-2 text-gray-300 hover:text-green-500 hover:bg-gray-700 rounded font-semibold">About</a>
+                        <Link to="/" className="block px-3 py-2 text-gray-300 hover:text-green-500 hover:bg-gray-700 rounded font-semibold">Home</Link>
+                        <Link to="/characters" className="block px-3 py-2 text-gray-300 hover:text-green-500 hover:bg-gray-700 rounded font-semibold">Characters</Link>
+                        <Link to="/episodes" className="block px-3 py-2 text-gray-300 hover:text-green-500 hover:bg-gray-700 rounded font-semibold">Episodes</Link>
+                        <Link to="/locations" className="block px-3 py-2 text-gray-300 hover:text-green-500 hover:bg-gray-700 rounded font-semibold">Locations</Link>
                     </div>
                 )}
             </div>

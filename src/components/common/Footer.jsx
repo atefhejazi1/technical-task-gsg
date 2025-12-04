@@ -1,5 +1,6 @@
 import React from 'react'
 import { Github, Linkedin, Twitter } from 'lucide-react'
+import { Link } from 'react-router'
 
 const Footer = () => {
     return (
@@ -16,10 +17,10 @@ const Footer = () => {
                     <div>
                         <h4 className="text-lg font-semibold text-green-500 mb-4">Quick Links</h4>
                         <ul className="space-y-2 text-gray-400">
-                            <li><a href="#" className="hover:text-green-500 transition">Characters</a></li>
-                            <li><a href="#" className="hover:text-green-500 transition">Episodes</a></li>
-                            <li><a href="#" className="hover:text-green-500 transition">Locations</a></li>
-                            <li><a href="#" className="hover:text-green-500 transition">About</a></li>
+                            <li><Link to="/" className="hover:text-green-500 transition">About</Link></li>
+                            <li><Link to="/characters" className="hover:text-green-500 transition">Characters</Link></li>
+                            <li><Link to="/episodes" className="hover:text-green-500 transition">Episodes</Link></li>
+                            <li><Link to="/locations" className="hover:text-green-500 transition">Locations</Link></li>
                         </ul>
                     </div>
 
