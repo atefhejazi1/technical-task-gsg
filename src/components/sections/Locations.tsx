@@ -1,24 +1,6 @@
 import { useState, useEffect, FC } from 'react'
+import { ApiResponse, Location } from '../../types/location.types'
 
-interface Location {
-    id: number;
-    name: string;
-    type: string;
-    dimension: string;
-    residents: string[];
-    url: string;
-    created: string;
-}
-
-interface ApiResponse {
-    info: {
-        count: number;
-        pages: number;
-        next: string | null;
-        prev: string | null;
-    };
-    results: Location[];
-}
 
 const Locations: FC = () => {
     const [locations, setLocations] = useState<Location[]>([])

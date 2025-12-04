@@ -1,27 +1,6 @@
-import { useState, useEffect, FC } from 'react'
+import  { useState, useEffect, FC } from 'react'
 import { Link } from 'react-router'
-
-interface Character {
-    id: number;
-    name: string;
-    status: string;
-    species: string;
-    image: string;
-    location: {
-        name: string;
-        url: string;
-    };
-}
-
-interface ApiResponse {
-    info: {
-        count: number;
-        pages: number;
-        next: string | null;
-        prev: string | null;
-    };
-    results: Character[];
-}
+import { ApiResponse, Character } from '../../types/character.types'
 
 const Characters: FC = () => {
     const [characters, setCharacters] = useState<Character[]>([])
@@ -32,19 +11,19 @@ const Characters: FC = () => {
         const fetchCharacters = async (): Promise<void> => {
             try {
                 const response = await fetch('https://rickandmortyapi.com/api/character')
-                
+
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`)
                 }
 
                 const data: ApiResponse = await response.json()
-                
+
                 if (data.results && Array.isArray(data.results)) {
                     setCharacters(data.results.slice(0, 6))
                 } else {
                     throw new Error("Invalid data structure received from API")
                 }
-                
+
                 setLoading(false)
             } catch (err) {
                 const errorMessage = err instanceof Error ? err.message : "An unknown error occurred"

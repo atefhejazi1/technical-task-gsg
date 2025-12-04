@@ -1,17 +1,9 @@
 import { useState, useEffect, FC, ChangeEvent } from "react";
 import { Search, X } from "lucide-react";
 import { useNavigate } from "react-router";
+import { CharacterResult, SearchBarProps } from "../../types/search.types";
 
-interface CharacterResult {
-    id: number;
-    name: string;
-    species: string;
-    image: string;
-}
 
-interface SearchBarProps {
-    isMobile?: boolean;
-}
 
 const SearchBar: FC<SearchBarProps> = ({ isMobile = false }) => {
     const [searchInput, setSearchInput] = useState<string>("");

@@ -1,10 +1,8 @@
-import { FC, ReactNode } from 'react'
+import { FC } from 'react'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import { LayoutProps } from '../../types/layout.type'
 
-interface LayoutProps {
-    children: ReactNode;
-}
 
 const Layout: FC<LayoutProps> = ({ children }) => {
     return (

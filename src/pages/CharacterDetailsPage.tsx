@@ -1,23 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import { useParams, Link } from 'react-router';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
+import { Character } from '../types/character.types';
 
-/** Type Definitions Based on Rick & Morty API */
-type Character = {
-    id: number;
-    name: string;
-    status: string;
-    species: string;
-    gender: string;
-    type: string;
-    image: string;
-    origin: { name: string };
-    location: { name: string };
-    episode: string[];
-};
-
-const CharacterDetailsPage: React.FC = () => {
+const CharacterDetailsPage: FC = () => {
     const { id } = useParams<{ id: string }>();
 
     const [character, setCharacter] = useState<Character | null>(null);
@@ -28,7 +15,12 @@ const CharacterDetailsPage: React.FC = () => {
         const fetchCharacter = async () => {
             try {
                 const response = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
-                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data: Character = await response.json();
                 setCharacter(data);
                 setLoading(false);
             } catch (err) {
@@ -37,7 +29,12 @@ const CharacterDetailsPage: React.FC = () => {
             }
         };
 
-        fetchCharacter();
+        if (id) {
+            fetchCharacter();
+        } else {
+            setError("Character ID is missing.");
+            setLoading(false);
+        }
     }, [id]);
 
     if (loading)
