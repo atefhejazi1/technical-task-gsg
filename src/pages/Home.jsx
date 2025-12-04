@@ -1,20 +1,18 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
-import Hero from '../components/Hero'
-import Characters from '../components/Characters'
-import Locations from '../components/Locations'
-import Episodes from '../components/Episodes'
-import Footer from '../components/Footer'
+import Hero from '../components/sections/Hero'
+import Characters from '../components/sections/Characters'
+import Locations from '../components/sections/Locations'
+import Episodes from '../components/sections/Episodes'
+import Layout from '../components/common/Layout'
 
 const Home = () => {
     return (
         <>
-            <Navbar />
-            <Hero />
-            <Characters />
-            <Locations />
-            <Episodes />
-            <Footer />
+            <Layout >
+                <Hero />
+                <Characters />
+                <Locations />
+                <Episodes />
+            </Layout>
         </>
     )
 }
