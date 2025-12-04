@@ -1,20 +1,54 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect, FC } from 'react'
 import { Link } from 'react-router'
 
-const Characters = () => {
-    const [characters, setCharacters] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(null)
+interface Character {
+    id: number;
+    name: string;
+    status: string;
+    species: string;
+    image: string;
+    location: {
+        name: string;
+        url: string;
+    };
+}
+
+interface ApiResponse {
+    info: {
+        count: number;
+        pages: number;
+        next: string | null;
+        prev: string | null;
+    };
+    results: Character[];
+}
+
+const Characters: FC = () => {
+    const [characters, setCharacters] = useState<Character[]>([])
+    const [loading, setLoading] = useState<boolean>(true)
+    const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
-        const fetchCharacters = async () => {
+        const fetchCharacters = async (): Promise<void> => {
             try {
                 const response = await fetch('https://rickandmortyapi.com/api/character')
-                const data = await response.json()
-                setCharacters(data.results.slice(0, 6))
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`)
+                }
+
+                const data: ApiResponse = await response.json()
+                
+                if (data.results && Array.isArray(data.results)) {
+                    setCharacters(data.results.slice(0, 6))
+                } else {
+                    throw new Error("Invalid data structure received from API")
+                }
+                
                 setLoading(false)
             } catch (err) {
-                setError(err.message)
+                const errorMessage = err instanceof Error ? err.message : "An unknown error occurred"
+                setError(errorMessage)
                 setLoading(false)
             }
         }
@@ -32,8 +66,8 @@ const Characters = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {characters.map((character) => (
-                        <Link 
-                            key={character.id} 
+                        <Link
+                            key={character.id}
                             to={`/character/${character.id}`}
                             className="bg-gray-800 rounded-lg overflow-hidden border-2 border-green-500 hover:shadow-lg hover:shadow-green-500 transition duration-300 cursor-pointer block"
                         >
@@ -42,7 +76,7 @@ const Characters = () => {
                                 <h3 className="text-xl font-bold text-green-400 mb-2">{character.name}</h3>
                                 <p className="text-gray-300 mb-2"><span className="font-semibold">Status:</span> {character.status}</p>
                                 <p className="text-gray-300 mb-2"><span className="font-semibold">Species:</span> {character.species}</p>
-                                <p className="text-gray-300"><span className="font-semibold">Location:</span> {character.location.name}</p>
+                                <p className="text-gray-300"><span className="font-semibold">Location:</span> {character.location?.name}</p>
                             </div>
                         </Link>
                     ))}

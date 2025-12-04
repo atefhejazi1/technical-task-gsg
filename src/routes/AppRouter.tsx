@@ -1,11 +1,10 @@
 import { createBrowserRouter } from 'react-router';
-import Home from '../pages/Home.jsx'
-import CharactersPage from '../pages/CharactersPage.jsx';
-import CharacterDetailsPage from '../pages/CharacterDetailsPage.jsx';
-import EpisodesPage from '../pages/EpisodesPage.jsx';
-import LocationsPage from '../pages/LocationsPage.jsx';
-import NotFound from '../pages/NotFound.jsx';
-
+import Home from '../pages/Home';
+import CharactersPage from '../pages/CharactersPage';
+import CharacterDetailsPage from '../pages/CharacterDetailsPage';
+import EpisodesPage from '../pages/EpisodesPage';
+import LocationsPage from '../pages/LocationsPage';
+import NotFound from '../pages/NotFound';
 
 export const router = createBrowserRouter([
     {

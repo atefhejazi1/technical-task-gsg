@@ -1,8 +1,8 @@
-import React from 'react'
+import { FC } from 'react'
 import { Github, Linkedin, Twitter } from 'lucide-react'
 import { Link } from 'react-router'
 
-const Footer = () => {
+const Footer: FC = () => {
     return (
         <footer className="bg-gray-900 border-t-4 border-green-500 py-12 px-4">
             <div className="max-w-7xl mx-auto">

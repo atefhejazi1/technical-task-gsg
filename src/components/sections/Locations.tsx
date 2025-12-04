@@ -1,19 +1,51 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect, FC } from 'react'
 
-const Locations = () => {
-    const [locations, setLocations] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(null)
+interface Location {
+    id: number;
+    name: string;
+    type: string;
+    dimension: string;
+    residents: string[];
+    url: string;
+    created: string;
+}
+
+interface ApiResponse {
+    info: {
+        count: number;
+        pages: number;
+        next: string | null;
+        prev: string | null;
+    };
+    results: Location[];
+}
+
+const Locations: FC = () => {
+    const [locations, setLocations] = useState<Location[]>([])
+    const [loading, setLoading] = useState<boolean>(true)
+    const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
-        const fetchLocations = async () => {
+        const fetchLocations = async (): Promise<void> => {
             try {
                 const response = await fetch('https://rickandmortyapi.com/api/location')
-                const data = await response.json()
-                setLocations(data.results.slice(0, 6))
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`)
+                }
+
+                const data: ApiResponse = await response.json()
+
+                if (data.results && Array.isArray(data.results)) {
+                    setLocations(data.results.slice(0, 6))
+                } else {
+                    throw new Error("Invalid data structure received from API")
+                }
+
                 setLoading(false)
             } catch (err) {
-                setError(err.message)
+                const errorMessage = err instanceof Error ? err.message : "An unknown error occurred"
+                setError(errorMessage)
                 setLoading(false)
             }
         }
@@ -28,7 +60,7 @@ const Locations = () => {
             <div className="max-w-7xl mx-auto">
                 <h2 className="text-4xl md:text-5xl font-bold text-green-500 mb-2 text-center">Locations</h2>
                 <p className="text-gray-400 text-center mb-10">Discover the dimensions and locations from the series</p>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {locations.map((location) => (
                         <div key={location.id} className="bg-gray-900 rounded-lg p-6 border-2 border-green-500 hover:shadow-lg hover:shadow-green-500 transition duration-300">

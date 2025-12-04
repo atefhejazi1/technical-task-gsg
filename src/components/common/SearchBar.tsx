@@ -1,11 +1,22 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, FC, ChangeEvent } from "react";
 import { Search, X } from "lucide-react";
 import { useNavigate } from "react-router";
 
-const SearchBar = ({ isMobile = false }) => {
-    const [searchInput, setSearchInput] = useState("");
-    const [results, setResults] = useState([]);
-    const [isOpen, setIsOpen] = useState(false);
+interface CharacterResult {
+    id: number;
+    name: string;
+    species: string;
+    image: string;
+}
+
+interface SearchBarProps {
+    isMobile?: boolean;
+}
+
+const SearchBar: FC<SearchBarProps> = ({ isMobile = false }) => {
+    const [searchInput, setSearchInput] = useState<string>("");
+    const [results, setResults] = useState<CharacterResult[]>([]);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,7 +30,13 @@ const SearchBar = ({ isMobile = false }) => {
                 const res = await fetch(
                     `https://rickandmortyapi.com/api/character/?name=${searchInput}`
                 );
-                const data = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+
+                const data: { results?: CharacterResult[] } = await res.json();
+
                 setResults(data.results || []);
             } catch (err) {
                 console.log(err);
@@ -30,7 +47,11 @@ const SearchBar = ({ isMobile = false }) => {
         return () => clearTimeout(timeout);
     }, [searchInput]);
 
-    const goToCharacter = (id) => {
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearchInput(e.target.value);
+    }
+
+    const goToCharacter = (id: number) => {
         setSearchInput("");
         setResults([]);
         setIsOpen(false);
@@ -50,13 +71,13 @@ const SearchBar = ({ isMobile = false }) => {
                         type="text"
                         placeholder="Search characters..."
                         value={searchInput}
-                        onChange={(e) => setSearchInput(e.target.value)}
+                        onChange={handleInputChange}
                         onFocus={() => setIsOpen(true)}
                         className="w-full px-4 py-2 rounded-lg bg-gray-800 border-2 border-green-500 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 transition text-sm md:text-base"
                     />
                     <Search className="absolute right-3 top-2.5 text-green-400 pointer-events-none" size={18} />
                 </div>
-                
+
                 {searchInput && (
                     <button
                         onClick={clearSearch}
@@ -76,10 +97,10 @@ const SearchBar = ({ isMobile = false }) => {
                             onClick={() => goToCharacter(char.id)}
                             className="w-full flex items-center gap-3 p-3 hover:bg-gray-700 transition text-white border-b border-gray-700 last:border-b-0"
                         >
-                            <img 
-                                src={char.image} 
-                                alt={char.name} 
-                                className="w-10 h-10 rounded-full object-cover flex-shrink-0" 
+                            <img
+                                src={char.image}
+                                alt={char.name}
+                                className="w-10 h-10 rounded-full object-cover flex-shrink-0"
                             />
                             <div className="text-left">
                                 <p className="font-semibold text-sm md:text-base">{char.name}</p>
@@ -87,7 +108,7 @@ const SearchBar = ({ isMobile = false }) => {
                             </div>
                         </button>
                     ))}
-                    
+
                     {results.length > 8 && (
                         <div className="p-3 text-center text-gray-400 text-sm">
                             +{results.length - 8} more results
@@ -105,7 +126,7 @@ const SearchBar = ({ isMobile = false }) => {
 
             {/* Backdrop when results are open on mobile */}
             {isOpen && results.length > 0 && isMobile && (
-                <div 
+                <div
                     className="fixed inset-0 bg-black bg-opacity-50 md:hidden z-40"
                     onClick={() => setIsOpen(false)}
                 />
