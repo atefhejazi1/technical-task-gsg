@@ -9,6 +9,7 @@ import LocationsPage from './pages/LocationsPage.jsx';
 import NotFound from './pages/NotFound.jsx';
 
 import './index.css'
+import CharacterDetailsPage from './pages/CharacterDetailsPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/characters",
     element: <CharactersPage />,
+  },
+  {
+    path: "/character/:id",
+    element: <CharacterDetailsPage />,
   },
   {
     path: "/episodes",
@@ -36,6 +41,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />,
+    <RouterProvider router={router} />
   </StrictMode>,
 )

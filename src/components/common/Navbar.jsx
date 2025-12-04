@@ -11,12 +11,10 @@ const Navbar = () => {
         <nav className="bg-gray-900 shadow-lg border-b-4 border-green-500">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="flex items-center justify-between h-16">
-                    {/* Logo */}
                     <div className="flex-shrink-0">
-                        <span className="text-3xl font-bold text-green-500">Rick & Morty</span>
+                        <Link to="/" className="text-2xl font-bold text-green-500 hover:text-green-400"> Rick & Morty</Link>
                     </div>
 
-                    {/* Search Input - Center */}
                     <div className="hidden md:flex flex-1 mx-8 max-w-md">
                         <div className="relative w-full">
                             <input
@@ -28,7 +26,6 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    {/* Desktop Menu */}
                     <div className="hidden md:flex space-x-6">
                         <Link to="/" className="text-gray-300 hover:text-green-500 transition font-semibold">Home</Link>
                         <Link to="/characters" className="text-gray-300 hover:text-green-500 transition font-semibold">Characters</Link>
@@ -36,7 +33,6 @@ const Navbar = () => {
                         <Link to="/locations" className="text-gray-300 hover:text-green-500 transition font-semibold">Locations</Link>
                     </div>
 
-                    {/* Mobile Menu Button */}
                     <button
                         onClick={toggleMenu}
                         className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-green-500 hover:bg-gray-800"
@@ -45,7 +41,6 @@ const Navbar = () => {
                     </button>
                 </div>
 
-                {/* Mobile Menu */}
                 {isOpen && (
                     <div className="md:hidden pb-4 bg-gray-800">
                         <div className="mb-4">

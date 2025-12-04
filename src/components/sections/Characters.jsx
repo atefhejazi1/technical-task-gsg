@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router'
 
 const Characters = () => {
     const [characters, setCharacters] = useState([])
@@ -31,7 +32,11 @@ const Characters = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {characters.map((character) => (
-                        <div key={character.id} className="bg-gray-800 rounded-lg overflow-hidden border-2 border-green-500 hover:shadow-lg hover:shadow-green-500 transition duration-300">
+                        <Link 
+                            key={character.id} 
+                            to={`/character/${character.id}`}
+                            className="bg-gray-800 rounded-lg overflow-hidden border-2 border-green-500 hover:shadow-lg hover:shadow-green-500 transition duration-300 cursor-pointer block"
+                        >
                             <img src={character.image} alt={character.name} className="w-full h-64 object-cover" />
                             <div className="p-4">
                                 <h3 className="text-xl font-bold text-green-400 mb-2">{character.name}</h3>
@@ -39,7 +44,7 @@ const Characters = () => {
                                 <p className="text-gray-300 mb-2"><span className="font-semibold">Species:</span> {character.species}</p>
                                 <p className="text-gray-300"><span className="font-semibold">Location:</span> {character.location.name}</p>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>

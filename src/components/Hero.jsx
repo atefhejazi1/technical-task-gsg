@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 const Hero = () => {
     return (
@@ -21,12 +22,12 @@ const Hero = () => {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col md:flex-row gap-4 justify-center">
-                    <button className="bg-green-500 text-gray-900 px-8 py-3 rounded-lg font-bold hover:bg-green-400 transition duration-300 text-base md:text-lg">
+                    <Link to={"/characters"} className="bg-green-500 text-gray-900 px-8 py-3 rounded-lg font-bold hover:bg-green-400 transition duration-300 text-base md:text-lg">
                         Explore Characters
-                    </button>
-                    <button className="bg-transparent border-2 border-green-500 text-green-500 px-8 py-3 rounded-lg font-bold hover:bg-green-500 hover:text-gray-900 transition duration-300 text-base md:text-lg">
+                    </Link>
+                    <Link to={"/episodes"} className="bg-transparent border-2 border-green-500 text-green-500 px-8 py-3 rounded-lg font-bold hover:bg-green-500 hover:text-gray-900 transition duration-300 text-base md:text-lg">
                         View Episodes
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>
